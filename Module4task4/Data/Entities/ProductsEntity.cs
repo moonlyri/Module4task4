@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Module4task4;
 
 public class ProductsEntity

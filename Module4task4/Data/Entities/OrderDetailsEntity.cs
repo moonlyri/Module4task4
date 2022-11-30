@@ -6,7 +6,7 @@ public class OrderDetailsEntity
 {
     public int Id { get; set; }
     public int OrderId { get; set; }
-    public string OrderDetailId { get; set; }
+    public int OrderDetailId { get; set; }
     public decimal Price { get; set; }
     public string Color { get; set; }
     public int ProductId { get; set; }

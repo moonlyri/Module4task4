@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Module4task4.Models;
 using Module4task4.Services.Abstractions;
 
@@ -5,62 +7,58 @@ namespace Module4task4;
 
 public class Starter
 {
-        private readonly ICreateTableService _createtableService;
-        private readonly IOrderService _orderService;
-        private readonly IProductService _productService;
-        private readonly ICustomerService _customerService;
+        private readonly IOrderService orderService;
+        private readonly IProductService productService;
+        private readonly ICustomerService customerService;
 
         public Starter(
             ICustomerService customerService,
             IOrderService orderService,
-            IProductService productService,
-            ICreateTableService createtableService)
+            IProductService productService)
         {
-            _customerService = customerService;
-            _orderService = orderService;
-            _productService = productService;
-            _createtableService = createtableService;
+            this.customerService = customerService;
+            this.orderService = orderService;
+            this.productService = productService;
         }
 
         public async Task Start()
         {
             var fullName = "Fullname Name";
 
-            var customerId = await _customerService.AddCustomer(fullName);
+            var customer = await this.customerService.AddCustomer(fullName);
 
-            await _customerService.GetCustomer(customerId);
+            await this.customerService.GetCustomer(customer);
 
-            var product1 = await _productService.AddProductAsync("product1", "the best product", 4, "blue");
-            var product2 = await _productService.AddProductAsync("product2", "even better product", 5, "black");
+            var product1 = await this.productService.AddProductAsync("product1", "the best product", 4, "blue");
+            var product2 = await this.productService.AddProductAsync("product2", "even better product", 5, "black");
 
-            var order1 = await _orderService.AddOrderAsync(customerId, new List<OrderDetails>()
+            var order1 = await this.orderService.AddOrderAsync(123, 345, 234);
             {
                 new OrderDetails()
                 {
                     ProductId = product1,
-                },
+                };
 
                 new OrderDetails()
                 {
-                    ProductId = product2
-                },
-            });
+                    ProductId = product2,
+                };
+            }
 
-            var order2 = await _orderService.AddOrderAsync(customerId, new List<OrderDetails>()
+            var order2 = await this.orderService.AddOrderAsync(123, 234, 345);
             {
                 new OrderDetails()
                 {
-                    ProductId = product2
-                },
+                    ProductId = product2,
+                };
 
                 new OrderDetails()
                 {
-                    ProductId = product1
-                },
-            });
+                    ProductId = product1,
+                };
+            }
 
-            var customerOrder = await _orderService.GetOrderByCustomerIdAsync(customerId);
+            var customerOrder = await this.orderService.GetOrderAsync(123);
 
-            _createtableService.CreateTable("Table");
         }
     }

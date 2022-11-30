@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,12 +23,12 @@ void ConfigureServices(ServiceCollection serviceCollection, IConfiguration confi
     serviceCollection.AddScoped<IDbContextWrapper<ApplicationDbContext>, DbContextWrapper<ApplicationDbContext>>();
 
     serviceCollection
+        .AddDbContextFactory<ApplicationDbContext>(opts => opts.UseNpgsql(connectionString))
         .AddTransient<ICustomerService, CustomerService>()
         .AddLogging(configure => configure.AddConsole())
         .AddTransient<ICustomerRepository, CustomersRepository>()
         .AddTransient<IOrderRepository, OrderRepository>()
         .AddTransient<IProductRepository, ProductRepository>()
-        .AddTransient<ICreateTableService, CreateTableService>()
         .AddTransient<IOrderService, OrderService>()
         .AddTransient<IProductService, ProductService>()
         .AddTransient<Starter>();

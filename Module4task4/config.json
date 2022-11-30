@@ -4,6 +4,6 @@
   },
   "ConnectionStrings":
   {
-    "DefaultConnection": "server=127.0.0.1;port=5433;database=Task4;uid=postgres;password=postgres;"
+    "DefaultConnection": "server=127.0.0.1;port=5433;database=MyShop;uid=postgres;password=postgres;"
   }
 }

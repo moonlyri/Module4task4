@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Module4task4.Models;
 using Module4task4.Repository.Abstractions;
+using Module4task4.Services.Abstractions;
 
-namespace Module4task4.Services.Abstractions;
+namespace Module4task4.Services;
 
 public class ProductService : BaseDataService<ApplicationDbContext>, IProductService
 {
@@ -23,7 +25,7 @@ public class ProductService : BaseDataService<ApplicationDbContext>, IProductSer
     public async Task<int> AddProductAsync(string name, string description, int size, string color)
     {
         var id = await _productRepository.AddProductAsync(name, description, size, color);
-        _loggerService.LogInformation($"Created product with Id = {id}");
+        this._loggerService.LogInformation("Created product with Id = {Id}", id);
         return id;
     }
 
@@ -33,7 +35,7 @@ public class ProductService : BaseDataService<ApplicationDbContext>, IProductSer
 
         if (result == null)
         {
-            _loggerService.LogWarning($"Product not found: {id}");
+            _loggerService.LogWarning("Product not found: {Id}", id);
             return null!;
         }
 
@@ -43,7 +45,7 @@ public class ProductService : BaseDataService<ApplicationDbContext>, IProductSer
             ProductName = result.ProductName,
             Size = result.Size,
             Color = result.Color,
-            ProductDescription = result.ProductDescription
+            ProductDescription = result.ProductDescription,
         };
     }
 }

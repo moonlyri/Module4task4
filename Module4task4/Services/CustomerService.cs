@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Module4task4.Models;
 using Module4task4.Repository.Abstractions;
@@ -21,30 +22,30 @@ public class CustomerService : BaseDataService<ApplicationDbContext>, ICustomerS
             _loggerService = loggerService;
         }
 
-        public async Task<string> AddCustomer(string fullname)
+        public async Task<int> AddCustomer(string fullname)
         {
             return await ExecuteSafeAsync(async () =>
             {
                 var id = await _customerRepository.AddCustomerAsync(fullname);
-                _loggerService.LogInformation($"Added customer with id: {id}");
+                _loggerService.LogInformation("Added customer with id: {Id}", id);
                 return id;
             });
         }
 
-        public async Task<Customer> GetCustomer(string id)
+        public async Task<Customer> GetCustomer(int id)
         {
             var customer = await _customerRepository.GetCustomerAsync(id);
 
             if (customer == null)
             {
-                _loggerService.LogWarning($"Customer not found: {id}");
+                _loggerService.LogWarning("Customer not found: {Id}", id);
                 return null!;
             }
 
             return new Customer()
             {
                 Id = customer.Id,
-                Fullname = customer.FullName
+                Fullname = customer.Fullname,
             };
         }
     }

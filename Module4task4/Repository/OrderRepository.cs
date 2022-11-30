@@ -1,4 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Module4task4.Models;
@@ -7,43 +12,45 @@ using Module4task4.Services.Abstractions;
 
 namespace Module4task4.Repository;
 
-public class OrderRepository : IOrderRepository
+public class OrderRepository : BaseRepository, IOrderRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public OrderRepository(
-        IDbContextWrapper<ApplicationDbContext> dbContextWrapper)
+    public OrderRepository(ApplicationDbContext dbContext, IMapper mapper)
+        : base(dbContext, mapper)
     {
-        _dbContext = dbContextWrapper.DbContext;
+        dbContext = _dbContext;
     }
 
-    public async Task<int> AddOrderAsync(string customer, List<OrderDetails> order)
+    public async Task<int> AddOrderAsync(int customer, int paymentId, int shipperId)
     {
-        var result = await _dbContext.Orders.AddAsync(new OrdersEntity()
+        var order = new OrdersEntity()
         {
-            CustomerId = customer
-        });
-
-        await _dbContext.OrderDetails.AddRangeAsync(order.Select(s => new OrderDetailsEntity()
-        {
-            OrderId = result.Entity.Id,
-            ProductId = s.ProductId
-        }));
-
+            CustomerId = customer, PaymentId = paymentId, ShipperId = shipperId,
+        };
+        _dbContext.Orders.Add(order);
         await _dbContext.SaveChangesAsync();
 
-        return result.Entity.Id;
+        return order.Id;
     }
 
-    public async Task<OrdersEntity?> GetOrderAsync(int id)
+    public async Task<Orders> GetOrderAsync(int id)
     {
-        return await _dbContext.Orders.Include(i => i.OrderDetails)
+        var order = await _dbContext.Orders.Include(i => i.OrderDetails)
             .FirstOrDefaultAsync(f => f.Id == id);
+        return Mapper.Map<Orders>(order);
     }
 
-    public async Task<IEnumerable<OrdersEntity>?> GetOrderByUserIdAsync(string id)
+    public async Task<Orders> GetOrderByCustomerIdAsync(int id)
     {
-        return await _dbContext.Orders.Include(i => i.OrderDetails)
-            .Where(f => f.CustomerId == id).ToListAsync();
+        var order = await _dbContext.Orders
+            .Include(el => el.OrderDetails)
+            .ThenInclude(el => el.Products)
+            .Include(el => el.Shippers)
+            .Include(el => el.Payment)
+            .Include(el => el.Customers)
+            .FirstOrDefaultAsync(el => el.Id == id);
+
+        return Mapper.Map<Orders>(order);
     }
 }

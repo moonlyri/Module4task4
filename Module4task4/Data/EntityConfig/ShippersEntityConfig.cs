@@ -5,12 +5,13 @@ namespace Module4task4.EntityConfig;
 
 public class ShippersEntityConfig : IEntityTypeConfiguration<ShippersEntity>
 {
-    public void Configure(EntityTypeBuilder<ShippersEntity> builder)
+    public void Configure(EntityTypeBuilder<ShippersEntity> build)
     {
-        builder.ToTable("Id").HasKey(s => s.Id);
-
-        builder.Property(s => s.ShippersId).HasColumnName("ShippersId").IsRequired().ValueGeneratedOnAdd();
-        builder.Property(s => s.Phone).IsRequired().HasColumnName("Phone");
-        builder.Property(s => s.CompanyName).HasColumnName("CompanyName").IsRequired();
+        build.ToTable("Id").HasKey(s => s.Id);
+        build.Property(s => s.ShippersId).HasColumnName("ShippersId").IsRequired();
+        build.Property(s => s.Phone).IsRequired().HasColumnName("Phone");
+        build.Property(s => s.CompanyName).HasColumnName("CompanyName").IsRequired();
+        build.HasMany(s => s.Orders).WithOne(o => o.Shippers)
+            .HasForeignKey(o => o.ShippersId).IsRequired();
     }
 }

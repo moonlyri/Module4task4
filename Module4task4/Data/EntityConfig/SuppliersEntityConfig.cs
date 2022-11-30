@@ -5,14 +5,15 @@ namespace Module4task4.EntityConfig;
 
 public class SuppliersEntityConfig : IEntityTypeConfiguration<SuppliersEntity>
 {
-    public void Configure(EntityTypeBuilder<SuppliersEntity> builder)
+    public void Configure(EntityTypeBuilder<SuppliersEntity> build)
     {
-        builder.ToTable("Id").HasKey(s => s.Id);
-
-        builder.Property(s => s.SupplierId).HasColumnName("SupplierId").IsRequired().ValueGeneratedOnAdd();
-        builder.Property(s => s.City).HasColumnName("City").IsRequired();
-        builder.Property(s => s.CompanyName).HasColumnName("CompanyName").IsRequired();
-        builder.Property(s => s.ContactFullname).HasColumnName("ContactFullName").IsRequired();
+        build.ToTable("Id").HasKey(s => s.Id);
+        build.Property(s => s.SupplierId).HasColumnName("SupplierId").IsRequired();
+        build.Property(s => s.City).HasColumnName("City").IsRequired();
+        build.Property(s => s.CompanyName).HasColumnName("CompanyName").IsRequired();
+        build.Property(s => s.ContactFullname).HasColumnName("ContactFullName").IsRequired();
+        build.HasMany(p => p.Products).WithOne(s => s.Suppliers)
+            .HasForeignKey(s => s.SuppliersId).IsRequired();
     }
 
 
