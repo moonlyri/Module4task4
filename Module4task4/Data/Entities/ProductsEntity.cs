@@ -9,7 +9,7 @@ public class ProductsEntity
     public string? ProductName { get; set; }
     public string? ProductDescription { get; set; }
     public decimal? Price { get; set; }
-    public SuppliersEntity? SuppliersId { get; set; }
+    public int? SuppliersId { get; set; }
     public SuppliersEntity? Suppliers { get; set; }
     public List<OrderDetailsEntity>? OrderDetails { get; set; }
 }

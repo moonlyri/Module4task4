@@ -7,7 +7,7 @@ public class OrdersEntityConfig : IEntityTypeConfiguration<OrdersEntity>
 {
     public void Configure(EntityTypeBuilder<OrdersEntity> build)
     {
-        build.ToTable("Id").HasKey(o => o.Id);
+        build.HasKey(o => o.OrderId);
         build.Property(o => o.OrderId).HasColumnName("OrderId");
         build.Property(o => o.CustomerId).HasColumnName("CustomerId");
         build.Property(o => o.OrderNumber).HasColumnName("OrderNumber");

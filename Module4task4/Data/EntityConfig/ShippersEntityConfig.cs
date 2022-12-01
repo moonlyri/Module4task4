@@ -7,7 +7,7 @@ public class ShippersEntityConfig : IEntityTypeConfiguration<ShippersEntity>
 {
     public void Configure(EntityTypeBuilder<ShippersEntity> build)
     {
-        build.ToTable("Id").HasKey(s => s.Id);
+        build.HasKey(s => s.ShippersId);
         build.Property(s => s.ShippersId).HasColumnName("ShippersId");
         build.Property(s => s.Phone).IsRequired().HasColumnName("Phone");
         build.Property(s => s.CompanyName).HasColumnName("CompanyName");

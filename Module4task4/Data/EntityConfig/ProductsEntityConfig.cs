@@ -7,7 +7,7 @@ public class ProductsEntityConfig : IEntityTypeConfiguration<ProductsEntity>
 {
     public void Configure(EntityTypeBuilder<ProductsEntity> build)
     {
-        build.ToTable("Id").HasKey(p => p.Id);
+        build.HasKey(p => p.ProductId);
         build.Property(p => p.ProductId).HasColumnName("ProductId");
         build.Property(p => p.ProductDescription).HasColumnName("ProductDescription");
         build.Property(p => p.ProductName).HasColumnName("ProductName").IsRequired();

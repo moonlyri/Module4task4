@@ -7,7 +7,7 @@ public class OrderDetailsEntityConfig : IEntityTypeConfiguration<OrderDetailsEnt
 {
     public void Configure(EntityTypeBuilder<OrderDetailsEntity> build)
     {
-        build.ToTable("Id").HasKey(o => o.Id);
+        build.HasKey(o => o.OrderDetailId);
         build.Property(o => o.OrderDetailId).HasColumnName("OrderDetailId");
         build.Property(o => o.Price).HasColumnName("Price").IsRequired();
         build.Property(o => o.OrderId).HasColumnName("OrderId");
