@@ -12,7 +12,5 @@ public class CustomerEntityConfig : IEntityTypeConfiguration<CustomersEntity>
         build.Property(c => c.CustomerId).HasColumnName("CustomerId").IsRequired();
         build.Property(c => c.City).HasColumnName("City");
         build.Property(c => c.FullName).HasColumnName("FirstName").IsRequired();
-        build.HasMany(c => c.Orders).WithOne(o => o.Customers)
-            .HasForeignKey(c => c.CustomerId);
     }
 }

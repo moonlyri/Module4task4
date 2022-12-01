@@ -6,10 +6,10 @@ public class OrderDetailsEntity
 {
     public int Id { get; set; }
     public int? OrderId { get; set; }
-    public int? OrderDetailId { get; set; } = null!;
-    public decimal Price { get; set; }
-    public int Count { get; set; }
+    public int? OrderDetailId { get; set; }
+    public decimal? Price { get; set; }
+    public int? Count { get; set; }
     public int? ProductId { get; set; }
-    public Product Products { get; set; } = null!;
-    public OrdersEntity Orders { get; set; } = null!;
+    public Product? Products { get; set; }
+    public OrdersEntity? Orders { get; set; }
 }

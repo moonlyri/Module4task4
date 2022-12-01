@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -41,6 +42,7 @@ public class OrderService : BaseDataService<ApplicationDbContext>, IOrderService
             return null!;
         }
 
+        Debug.Assert(result.OrderDetails != null, "result.OrderDetails != null");
         return new Orders()
         {
             Id = result.Id,
@@ -68,20 +70,24 @@ public class OrderService : BaseDataService<ApplicationDbContext>, IOrderService
             return null!;
         }
 
-        return result.Select(r => new Orders()
+        return result.Select(r =>
         {
-            Id = r.Id,
-            OrderDetails = r.OrderDetails.Select(s => new OrderDetails()
+            Debug.Assert(r.OrderDetails != null, "r.OrderDetails != null");
+            return new Orders()
             {
-                Price = s.Price,
-                Count = s.Count,
-                Products = new Product()
+                Id = r.Id,
+                OrderDetails = r.OrderDetails.Select(s => new OrderDetails()
                 {
-                    Id = s.Products!.Id,
-                    ProductName = s.Products.ProductName,
-                    Price = s.Products.Price
-                }
-            })
+                    Price = s.Price,
+                    Count = s.Count,
+                    Products = new Product()
+                    {
+                        Id = s.Products!.Id,
+                        ProductName = s.Products.ProductName,
+                        Price = s.Products.Price
+                    }
+                })
+            };
         }).ToList();
     }
 }

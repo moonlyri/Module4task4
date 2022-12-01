@@ -13,17 +13,19 @@ public class OrdersEntityConfig : IEntityTypeConfiguration<OrdersEntity>
         build.Property(o => o.OrderNumber).HasColumnName("OrderNumber");
         build.Property(o => o.PaymentId).HasColumnName("PaymentId");
         build.Property(o => o.Price).HasColumnName("Price").IsRequired();
-        build.HasOne(o => o.Customers)
-            .WithMany(o => o.Orders)
-            .HasForeignKey(c => c.CustomerId)
+        build.HasOne(h => h.Customers)
+            .WithMany(w => w.Orders)
+            .HasForeignKey(h => h.CustomerId)
             .OnDelete(DeleteBehavior.Cascade);
-        build.HasOne(p => p.Payment)
-            .WithMany(o => o.Orders)
-            .HasForeignKey(p => p.PaymentId)
+        
+        build.HasOne(h => h.Payment)
+            .WithMany(w => w.Orders)
+            .HasForeignKey(h => h.PaymentId)
             .OnDelete(DeleteBehavior.Cascade);
-        build.HasOne(s => s.Shippers)
-            .WithMany(o => o.Orders)
-            .HasForeignKey(s => s.ShippersId)
+        
+        build.HasOne(h => h.Shippers)
+            .WithMany(w => w.Orders)
+            .HasForeignKey(h => h.ShippersId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

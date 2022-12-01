@@ -12,10 +12,6 @@ public class ProductsEntityConfig : IEntityTypeConfiguration<ProductsEntity>
         build.Property(p => p.ProductDescription).HasColumnName("ProductDescription");
         build.Property(p => p.ProductName).HasColumnName("ProductName").IsRequired();
         build.Property(p => p.Price).HasColumnName("Price").IsRequired();
-        build.HasOne(c => c.Category)
-            .WithMany(p => p.Products)
-            .HasForeignKey(p => p.CategoryId)
-            .OnDelete(DeleteBehavior.Cascade);
         build.HasOne(s => s.Suppliers)
             .WithMany(p => p.Products)
             .HasForeignKey(s => s.SuppliersId)

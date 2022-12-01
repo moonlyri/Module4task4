@@ -10,8 +10,6 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<CategoryEntity> Categories { get; set; } = null!;
-
     public DbSet<CustomersEntity> Customers { get; set; } = null!;
 
     public DbSet<OrdersEntity> Orders { get; set; } = null!;
@@ -29,7 +27,6 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfiguration(new CategoryEntityConfig());
         modelBuilder.ApplyConfiguration(new CustomerEntityConfig());
         modelBuilder.ApplyConfiguration(new OrderDetailsEntityConfig());
         modelBuilder.ApplyConfiguration(new OrdersEntityConfig());
