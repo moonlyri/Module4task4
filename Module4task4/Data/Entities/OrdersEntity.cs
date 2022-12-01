@@ -13,7 +13,7 @@ public class OrdersEntity
     public decimal? Price { get; set; }
     public ShippersEntity? Shippers { get; set; }
     public ShippersEntity? ShippersId { get; set; }
-    public PaymentEntity? Payment { get; set; }
+    public PaymentEntity? Payments { get; set; }
     public CustomersEntity? Customers { get; set; }
     public List<OrderDetailsEntity>? OrderDetails { get; set; }
 }

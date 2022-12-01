@@ -18,7 +18,7 @@ public class OrdersEntityConfig : IEntityTypeConfiguration<OrdersEntity>
             .HasForeignKey(h => h.CustomerId)
             .OnDelete(DeleteBehavior.Cascade);
         
-        build.HasOne(h => h.Payment)
+        build.HasOne(h => h.Payments)
             .WithMany(w => w.Orders)
             .HasForeignKey(h => h.PaymentId)
             .OnDelete(DeleteBehavior.Cascade);
