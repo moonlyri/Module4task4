@@ -8,11 +8,10 @@ public class ProductsEntityConfig : IEntityTypeConfiguration<ProductsEntity>
     public void Configure(EntityTypeBuilder<ProductsEntity> build)
     {
         build.ToTable("Id").HasKey(p => p.Id);
-        build.Property(p => p.ProductId).HasColumnName("ProductId").IsRequired();
-        build.Property(p => p.ProductDescription).HasColumnName("ProductDescription").IsRequired();
+        build.Property(p => p.ProductId).HasColumnName("ProductId");
+        build.Property(p => p.ProductDescription).HasColumnName("ProductDescription");
         build.Property(p => p.ProductName).HasColumnName("ProductName").IsRequired();
-        build.Property(p => p.Color).HasColumnName("Color").IsRequired();
-        build.Property(p => p.Size).HasColumnName("Size").IsRequired();
+        build.Property(p => p.Price).HasColumnName("Price").IsRequired();
         build.HasOne(c => c.Category)
             .WithMany(p => p.Products)
             .HasForeignKey(p => p.CategoryId)

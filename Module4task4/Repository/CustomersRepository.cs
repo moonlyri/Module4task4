@@ -1,10 +1,9 @@
+#nullable enable
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Module4task4.Models;
 using Module4task4.Repository.Abstractions;
-using Module4task4.Services.Abstractions;
 
 namespace Module4task4.Repository;
 
@@ -12,8 +11,8 @@ public class CustomersRepository : BaseRepository, ICustomerRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
-    public CustomersRepository(ApplicationDbContext dbContext, IMapper mapper)
-        : base(dbContext, mapper)
+    public CustomersRepository(ApplicationDbContext dbContext)
+        : base(dbContext)
     {
         _dbContext = dbContext;
     }
@@ -22,7 +21,8 @@ public class CustomersRepository : BaseRepository, ICustomerRepository
     {
         var customer = new CustomersEntity()
         {
-            FullName = fullname,
+            Id = Convert.ToInt32(Guid.NewGuid().ToString()),
+            FullName = fullname
         };
 
         await _dbContext.Customers.AddAsync(customer);
@@ -30,11 +30,9 @@ public class CustomersRepository : BaseRepository, ICustomerRepository
 
         return customer.Id;
     }
-    
 
-    public async Task<Customer?> GetCustomerAsync(int id)
+    public async Task<CustomersEntity?> GetCustomerAsync(int id)
     {
-        var customer = await _dbContext.Customers.FirstOrDefaultAsync(el => el.Id == id);
-        return Mapper.Map<Customer>(customer);
+        return await _dbContext.Customers.FirstOrDefaultAsync(f => f.Id == id);
     }
 }

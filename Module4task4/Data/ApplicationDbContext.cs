@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Module4task4.EntityConfig;
 
@@ -11,15 +10,21 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    public DbSet<CategoryEntity> Categories { get; set; }
-    public DbSet<CustomersEntity> Customers { get; set; }
-    public DbSet<OrdersEntity> Orders { get; set; }
-    public DbSet<OrderDetailsEntity> OrderDetails { get; set; }
+    public DbSet<CategoryEntity> Categories { get; set; } = null!;
 
-    public DbSet<PaymentEntity> Payments { get; set; }
-    public DbSet<ProductsEntity> Products { get; set; }
-    public DbSet<ShippersEntity> Shippers { get; set; }
-    public DbSet<SuppliersEntity> Suppliers { get; set; }
+    public DbSet<CustomersEntity> Customers { get; set; } = null!;
+
+    public DbSet<OrdersEntity> Orders { get; set; } = null!;
+
+    public DbSet<OrderDetailsEntity> OrderDetails { get; set; } = null!;
+
+    public DbSet<PaymentEntity> Payments { get; set; } = null!;
+
+    public DbSet<ProductsEntity> Products { get; set; } = null!;
+
+    public DbSet<ShippersEntity> Shippers { get; set; } = null!;
+
+    public DbSet<SuppliersEntity> Suppliers { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

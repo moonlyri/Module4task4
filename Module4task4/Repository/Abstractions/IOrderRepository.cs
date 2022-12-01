@@ -8,7 +8,9 @@ namespace Module4task4.Repository.Abstractions;
 
 public interface IOrderRepository
 {
-    Task<int> AddOrderAsync(int customer, int paymentId, int shipperId);
-    Task<Orders> GetOrderAsync(int id);
-    Task<Orders> GetOrderByCustomerIdAsync(int id);
+    Task<int> AddOrderAsync(int customerId, List<OrderDetails> items);
+
+    Task<OrdersEntity?> GetOrderAsync(int id);
+
+    Task<IEnumerable<OrdersEntity>?> GetOrderByCustomerIdAsync(int id);
 }

@@ -6,6 +6,7 @@ namespace Module4task4.Services.Abstractions;
 
 public interface IOrderService
 {
-    Task<int> AddOrderAsync(int customerid, int paymentId, int shipperId);
+    Task<int> AddOrderAsync(int customer, List<OrderDetails> items);
     Task<Orders> GetOrderAsync(int id);
+    Task<IReadOnlyList<Orders>> GetOrderByCustomerIdAsync(int id);
 }

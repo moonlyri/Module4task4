@@ -8,10 +8,10 @@ public class PaymentEntityConfig : IEntityTypeConfiguration<PaymentEntity>
     public void Configure(EntityTypeBuilder<PaymentEntity> build)
     {
         build.ToTable("Id").HasKey(p => p.Id);
-        build.Property(p => p.PaymentId).HasColumnName("PaymentId").IsRequired();
-        build.Property(p => p.Allowed).HasColumnName("Allowed").IsRequired();
-        build.Property(p => p.PaymentType).HasColumnName("PaymentType").IsRequired();
+        build.Property(p => p.PaymentId).HasColumnName("PaymentId");
+        build.Property(p => p.Allowed).HasColumnName("Allowed");
+        build.Property(p => p.PaymentType).HasColumnName("PaymentType");
         build.HasMany(p => p.Orders).WithOne(o => o.Payment)
-            .HasForeignKey(o => o.PaymentId).IsRequired();
+            .HasForeignKey(o => o.PaymentId);
     }
 }

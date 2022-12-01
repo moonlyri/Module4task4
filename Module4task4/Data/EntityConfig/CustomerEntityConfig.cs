@@ -10,10 +10,9 @@ public class CustomerEntityConfig : IEntityTypeConfiguration<CustomersEntity>
     {
         build.ToTable("Id").HasKey(c => c.Id);
         build.Property(c => c.CustomerId).HasColumnName("CustomerId").IsRequired();
-        build.Property(c => c.City).HasColumnName("City").IsRequired();
+        build.Property(c => c.City).HasColumnName("City");
         build.Property(c => c.FullName).HasColumnName("FirstName").IsRequired();
         build.HasMany(c => c.Orders).WithOne(o => o.Customers)
-            .HasForeignKey(c => c.CustomerId).IsRequired();
+            .HasForeignKey(c => c.CustomerId);
     }
-
 }

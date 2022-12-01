@@ -7,58 +7,65 @@ namespace Module4task4;
 
 public class Starter
 {
-        private readonly IOrderService orderService;
-        private readonly IProductService productService;
-        private readonly ICustomerService customerService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+        private readonly ICustomerService _customerService;
 
         public Starter(
             ICustomerService customerService,
             IOrderService orderService,
             IProductService productService)
         {
-            this.customerService = customerService;
-            this.orderService = orderService;
-            this.productService = productService;
+            _customerService = customerService;
+            _orderService = orderService;
+            _productService = productService;
         }
+
 
         public async Task Start()
         {
-            var fullName = "Fullname Name";
+            var fullname = "Boris Jonsonuk";
 
-            var customer = await this.customerService.AddCustomer(fullName);
+            var customerId = await _customerService.AddCustomer(fullname);
 
-            await this.customerService.GetCustomer(customer);
+            await _customerService.GetCustomer(customerId);
 
-            var product1 = await this.productService.AddProductAsync("product1", "the best product", 4, "blue");
-            var product2 = await this.productService.AddProductAsync("product2", "even better product", 5, "black");
+            var product1 = await _productService.AddProductAsync("product1", 4);
+            var product2 = await _productService.AddProductAsync("product2", 7);
 
-            var order1 = await this.orderService.AddOrderAsync(123, 345, 234);
+            var order1 = await _orderService.AddOrderAsync(customerId, new List<OrderDetails>()
             {
                 new OrderDetails()
                 {
-                    ProductId = product1,
-                };
+                    Count = 2,
+                    ProductId = product1
+                },
 
                 new OrderDetails()
                 {
+                    Count = 6,
                     ProductId = product2,
-                };
-            }
+                },
+            });
 
-            var order2 = await this.orderService.AddOrderAsync(123, 234, 345);
+            var order2 = await _orderService.AddOrderAsync(customerId, new List<OrderDetails>()
             {
                 new OrderDetails()
                 {
-                    ProductId = product2,
-                };
+                    Count = 1,
+                    ProductId = product1
+                },
 
                 new OrderDetails()
                 {
-                    ProductId = product1,
-                };
-            }
+                    Count = 9,
+                    ProductId = product2
+                },
+            });
 
-            var customerOrder = await this.orderService.GetOrderAsync(123);
+            var userOrder = await _orderService.GetOrderByCustomerIdAsync(customerId);
 
+            await _productService.UpdatePrice(product1, 355);
+            await _productService.Delete(product2);
         }
     }

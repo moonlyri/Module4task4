@@ -45,7 +45,7 @@ public class CustomerService : BaseDataService<ApplicationDbContext>, ICustomerS
             return new Customer()
             {
                 Id = customer.Id,
-                Fullname = customer.Fullname,
+                Fullname = customer.FullName
             };
         }
     }

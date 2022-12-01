@@ -8,10 +8,10 @@ public class OrderDetailsEntityConfig : IEntityTypeConfiguration<OrderDetailsEnt
     public void Configure(EntityTypeBuilder<OrderDetailsEntity> build)
     {
         build.ToTable("Id").HasKey(o => o.Id);
-        build.Property(o => o.OrderDetailId).HasColumnName("OrderDetailId").IsRequired();
-        build.Property(o => o.Color).HasColumnName("Color").IsRequired();
+        build.Property(o => o.OrderDetailId).HasColumnName("OrderDetailId");
         build.Property(o => o.Price).HasColumnName("Price").IsRequired();
-        build.Property(o => o.OrderId).HasColumnName("OrderId").IsRequired();
+        build.Property(o => o.OrderId).HasColumnName("OrderId");
+        build.Property(o => o.Count).HasColumnName("Count");
         build.HasOne(p => p.Products)
             .WithMany(o => o.OrderDetails)
             .HasForeignKey(p => p.ProductId)
@@ -21,5 +21,4 @@ public class OrderDetailsEntityConfig : IEntityTypeConfiguration<OrderDetailsEnt
             .HasForeignKey(o => o.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
     }
-
 }

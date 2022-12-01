@@ -3,13 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Module4task4.Services.Abstractions;
 
-namespace Module4task4.Services;
-
-public interface IBaseDataService
-{
-}
+namespace Module4task4.Services.Abstractions;
 
 public abstract class BaseDataService<T>
 
@@ -26,15 +21,18 @@ public abstract class BaseDataService<T>
         _logger = logger;
     }
 
-    protected Task ExecuteSafeAsync(Func<Task> action
-        , CancellationToken cancellationToken = default) 
+    protected Task ExecuteSafeAsync(
+        Func<Task> action,
+        CancellationToken cancellationToken = default)
         => ExecuteSafeAsync(token => action(), cancellationToken);
 
-    protected Task<TResult> ExecuteSafeAsync<TResult>(Func<Task<TResult>> action, 
-        CancellationToken cancellationToken = default) 
+    protected Task<TResult> ExecuteSafeAsync<TResult>(
+        Func<Task<TResult>> action,
+        CancellationToken cancellationToken = default)
         => ExecuteSafeAsync(token => action(), cancellationToken);
 
-    private async Task ExecuteSafeAsync(Func<CancellationToken, Task> action, 
+    private async Task ExecuteSafeAsync(
+        Func<CancellationToken, Task> action,
         CancellationToken cancellationToken = default)
     {
         await using var transaction = await _dbContextWrapper.BeginTransactionAsync(cancellationToken);

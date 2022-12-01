@@ -6,5 +6,6 @@ namespace Module4task4.Repository.Abstractions;
 public interface ICustomerRepository
 {
     Task<int> AddCustomerAsync(string fullname);
-    Task<Customer> GetCustomerAsync(int id);
+
+    Task<CustomersEntity?> GetCustomerAsync(int id);
 }

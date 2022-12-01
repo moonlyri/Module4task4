@@ -22,10 +22,10 @@ public class ProductService : BaseDataService<ApplicationDbContext>, IProductSer
         _loggerService = loggerService;
     }
 
-    public async Task<int> AddProductAsync(string name, string description, int size, string color)
+    public async Task<int> AddProductAsync(string name, decimal price)
     {
-        var id = await _productRepository.AddProductAsync(name, description, size, color);
-        this._loggerService.LogInformation("Created product with Id = {Id}", id);
+        var id = await _productRepository.AddProductAsync(name, price);
+        _loggerService.LogInformation("Created product with Id = {Id}", id);
         return id;
     }
 
@@ -35,7 +35,7 @@ public class ProductService : BaseDataService<ApplicationDbContext>, IProductSer
 
         if (result == null)
         {
-            _loggerService.LogWarning("Product not found: {Id}", id);
+            _loggerService.LogWarning("Product nor found: {Id}", id);
             return null!;
         }
 
@@ -43,9 +43,36 @@ public class ProductService : BaseDataService<ApplicationDbContext>, IProductSer
         {
             Id = result.Id,
             ProductName = result.ProductName,
-            Size = result.Size,
-            Color = result.Color,
-            ProductDescription = result.ProductDescription,
+            Price = result.Price,
+            ProductDescription = result.ProductDescription
         };
+    }
+
+    public async Task<bool> UpdatePrice(int id, decimal price)
+    {
+        var result = await _productRepository.UpdatePrice(id, price);
+
+        if (!result)
+        {
+            _loggerService.LogWarning("Product not found: {Id} for update", id);
+            return false;
+        }
+
+        _loggerService.LogInformation("Product with Id = {Id} was updated", id);
+        return true;
+    }
+
+    public async Task<bool> Delete(int id)
+    {
+        var result = await _productRepository.Delete(id);
+
+        if (!result)
+        {
+            _loggerService.LogWarning("Product not found: {Id} for delete", id);
+            return false;
+        }
+
+        _loggerService.LogInformation("Product with Id = {Id} was deleted", id);
+        return true;
     }
 }

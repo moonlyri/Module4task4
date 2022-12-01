@@ -5,6 +5,8 @@ namespace Module4task4.Services.Abstractions;
 
 public interface IProductService
 {
-    Task<int> AddProductAsync(string name, string description, int size, string color);
+    Task<int> AddProductAsync(string name, decimal price);
     Task<Product> GetProductAsync(int id);
+    Task<bool> UpdatePrice(int id, decimal price);
+    Task<bool> Delete(int id);
 }

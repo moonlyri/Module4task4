@@ -7,5 +7,4 @@ public interface ICustomerService
 {
     Task<int> AddCustomer(string fullname);
     Task<Customer> GetCustomer(int id);
-    
 }
