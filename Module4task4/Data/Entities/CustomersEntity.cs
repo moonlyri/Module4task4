@@ -8,5 +8,5 @@ public class CustomersEntity
     public int? CustomerId { get; set; }
     public string? FullName { get; set; }
     public string? City { get; set; }
-    public List<OrdersEntity>? Orders { get; set; } 
+    public List<OrdersEntity>? Orders { get; set; } = null!;
 }

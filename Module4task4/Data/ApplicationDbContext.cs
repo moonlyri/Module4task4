@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Module4task4.EntityConfig;
+using Module4task4.Data.EntityConfig;
 
-namespace Module4task4;
+namespace Module4task4.Data;
 
 public class ApplicationDbContext : DbContext
 {
@@ -23,6 +23,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<ShippersEntity> Shippers { get; set; } = null!;
 
     public DbSet<SuppliersEntity> Suppliers { get; set; } = null!;
+
+    public DbSet<CategoryEntity> Categories { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Module4task4.EntityConfig;
+namespace Module4task4.Data.EntityConfig;
 
 public class OrdersEntityConfig : IEntityTypeConfiguration<OrdersEntity>
 {
@@ -17,12 +17,12 @@ public class OrdersEntityConfig : IEntityTypeConfiguration<OrdersEntity>
             .WithMany(w => w.Orders)
             .HasForeignKey(h => h.CustomerId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         build.HasOne(h => h.Payments)
             .WithMany(w => w.Orders)
             .HasForeignKey(h => h.PaymentId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         build.HasOne(h => h.Shippers)
             .WithMany(w => w.Orders)
             .HasForeignKey(h => h.ShippersId)

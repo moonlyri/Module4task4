@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Module4task4.Data;
 using Module4task4.Models;
 using Module4task4.Repository.Abstractions;
 using Module4task4.Services.Abstractions;
@@ -44,7 +45,6 @@ public class CustomerService : BaseDataService<ApplicationDbContext>, ICustomerS
 
             return new Customer()
             {
-                Id = customer.Id,
                 Fullname = customer.FullName
             };
         }

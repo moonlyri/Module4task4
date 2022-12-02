@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Module4task4.EntityConfig;
+namespace Module4task4.Data.EntityConfig;
 
 public class SuppliersEntityConfig : IEntityTypeConfiguration<SuppliersEntity>
 {

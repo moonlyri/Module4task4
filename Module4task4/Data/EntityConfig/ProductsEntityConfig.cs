@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Module4task4.EntityConfig;
+namespace Module4task4.Data.EntityConfig;
 
 public class ProductsEntityConfig : IEntityTypeConfiguration<ProductsEntity>
 {
@@ -15,6 +15,10 @@ public class ProductsEntityConfig : IEntityTypeConfiguration<ProductsEntity>
         build.HasOne(s => s.Suppliers)
             .WithMany(p => p.Products)
             .HasForeignKey(s => s.SuppliersId)
+            .OnDelete(DeleteBehavior.Cascade);
+        build.HasOne(h => h.Category)
+            .WithMany(c => c.Products)
+            .HasForeignKey(h => h.CategoryId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

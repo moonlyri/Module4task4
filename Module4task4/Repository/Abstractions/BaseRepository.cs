@@ -1,3 +1,5 @@
+using Module4task4.Data;
+
 namespace Module4task4.Repository.Abstractions;
 
 public abstract class BaseRepository
